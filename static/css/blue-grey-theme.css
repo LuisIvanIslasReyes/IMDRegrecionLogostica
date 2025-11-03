@@ -116,6 +116,47 @@ footer {
 /* Iconos con color personalizado */
 .feature-icon {
     color: var(--blue-grey-600) !important;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-icon i {
+    font-size: 4rem !important;
+    color: var(--blue-grey-600) !important;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Asegurar que Font Awesome se carga correctamente */
+.fas, .far, .fab {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important;
+    font-weight: 900 !important;
+}
+
+/* Animación sutil para los iconos */
+.feature-icon i {
+    transition: all 0.3s ease;
+}
+
+.feature-icon:hover i {
+    transform: scale(1.1);
+    color: var(--blue-grey-700) !important;
+}
+
+/* Estilos específicos para asegurar visibilidad */
+.fas.fa-crystal-ball {
+    font-size: 4rem !important;
+    color: var(--blue-grey-600) !important;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+.fas.fa-brain, .fas.fa-chart-bar {
+    font-size: 4rem !important;
+    color: var(--blue-grey-600) !important;
+    display: inline-block !important;
+    visibility: visible !important;
 }
 
 /* Bordes redondeados más modernos */
