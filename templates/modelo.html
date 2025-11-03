@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}Información del Modelo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Título de la página -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-5">
+                <i class="fas fa-brain me-3"></i>
+                Información del Modelo
+            </h1>
+            <p class="lead text-muted">
+                Métricas de rendimiento y análisis detallado del modelo de regresión logística
+            </p>
+        </div>
+    </div>
+
+    <!-- Métricas principales -->
+    <div class="row mb-5">
+        <div class="col-md-3 mb-3">
+            <div class="metric-card">
+                <div class="metric-value">{{ "%.1f" | format(metricas.accuracy * 100) }}%</div>
+                <div class="metric-label">Accuracy</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="metric-card">
+                <div class="metric-value">{{ "%.1f" | format(metricas.precision * 100) }}%</div>
+                <div class="metric-label">Precision</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="metric-card">
+                <div class="metric-value">{{ "%.1f" | format(metricas.recall * 100) }}%</div>
+                <div class="metric-label">Recall</div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="metric-card">
+                <div class="metric-value">{{ "%.3f" | format(metricas.auc_score) }}</div>
+                <div class="metric-label">AUC Score</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explicación de métricas -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Interpretación de Métricas
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-bullseye me-2" style="color: #546e7a;"></i>Accuracy ({{ "%.1f" | format(metricas.accuracy * 100) }}%)</h5>
+                            <p class="text-muted">
+                                El modelo acierta {{ "%.0f" | format(metricas.accuracy * 100) }} de cada 100 predicciones.
+                                {% if metricas.accuracy >= 0.85 %}
+                                <span class="badge" style="background: linear-gradient(135deg, #607d8b 0%, #455a64 100%); color: white;">Excelente</span>
+                                {% elif metricas.accuracy >= 0.75 %}
+                                <span class="badge bg-warning">Bueno</span>
+                                {% else %}
+                                <span class="badge bg-danger">Necesita mejora</span>
+                                {% endif %}
+                            </p>
+
+                            <h5><i class="fas fa-crosshairs me-2" style="color: #607d8b;"></i>Precision ({{ "%.1f" | format(metricas.precision * 100) }}%)</h5>
+                            <p class="text-muted">
+                                Cuando el modelo predice "SÍ comprará", acierta {{ "%.0f" | format(metricas.precision * 100) }}% de las veces.
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-search me-2" style="color: #78909c;"></i>Recall ({{ "%.1f" | format(metricas.recall * 100) }}%)</h5>
+                            <p class="text-muted">
+                                El modelo detecta {{ "%.0f" | format(metricas.recall * 100) }}% de todos los clientes que realmente compran.
+                            </p>
+
+                            <h5><i class="fas fa-chart-area me-2" style="color: #90a4ae;"></i>AUC Score ({{ "%.3f" | format(metricas.auc_score) }})</h5>
+                            <p class="text-muted">
+                                Capacidad del modelo para distinguir entre clases.
+                                {% if metricas.auc_score >= 0.8 %}
+                                <span class="badge" style="background: linear-gradient(135deg, #607d8b 0%, #455a64 100%); color: white;">Muy bueno</span>
+                                {% elif metricas.auc_score >= 0.7 %}
+                                <span class="badge bg-warning">Aceptable</span>
+                                {% else %}
+                                <span class="badge bg-danger">Bajo</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row mb-5">
+        <!-- Matriz de Confusión -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-table me-2"></i>
+                        Matriz de Confusión
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    {% if cm_plot %}
+                    <img src="data:image/png;base64,{{ cm_plot }}" class="img-fluid" alt="Matriz de Confusión">
+                    {% else %}
+                    <p class="text-muted">Gráfico no disponible</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Distribución de Datos -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">
+                        <i class="fas fa-chart-histogram me-2"></i>
+                        Distribución de Datos
+                    </h4>
+                </div>
+                <div class="card-body text-center">
+                    {% if dist_plot %}
+                    <img src="data:image/png;base64,{{ dist_plot }}" class="img-fluid" alt="Distribución de Datos">
+                    {% else %}
+                    <p class="text-muted">Gráfico no disponible</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Estadísticas del Dataset -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-database me-2"></i>
+                        Estadísticas del Dataset
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #546e7a !important;">
+                                <h4 style="color: #546e7a;">{{ stats.total_registros }}</h4>
+                                <p class="mb-0">Total de Registros</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #607d8b !important;">
+                                <h4 style="color: #607d8b;">{{ stats.compradores }}</h4>
+                                <p class="mb-0">Compradores</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #78909c !important;">
+                                <h4 style="color: #78909c;">{{ stats.no_compradores }}</h4>
+                                <p class="mb-0">No Compradores</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #546e7a !important;">
+                                <h4 style="color: #546e7a;">{{ "%.1f" | format(stats.edad_promedio) }}</h4>
+                                <p class="mb-0">Edad Promedio</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #607d8b !important;">
+                                <h4 style="color: #607d8b;">${{ "{:,.0f}".format(stats.salario_promedio) }}</h4>
+                                <p class="mb-0">Salario Promedio</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3 border rounded" style="border-color: #78909c !important;">
+                                <h4 style="color: #78909c;">{{ "%.1f" | format(stats.porcentaje_compra) }}%</h4>
+                                <p class="mb-0">Tasa de Compra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resumen del rendimiento -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Análisis del Rendimiento
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-chart-line me-2"></i>Resumen del Modelo:</h5>
+                        <ul class="mb-0">
+                            <li><strong>Fortalezas:</strong> 
+                                {% if metricas.accuracy >= 0.85 %}
+                                    Excelente accuracy general, modelo confiable para predicciones.
+                                {% else %}
+                                    Accuracy aceptable, puede ser útil para análisis preliminares.
+                                {% endif %}
+                            </li>
+                            <li><strong>Área de mejora:</strong> 
+                                {% if metricas.recall < 0.8 %}
+                                    El recall puede mejorarse para detectar más clientes potenciales.
+                                {% else %}
+                                    Buen balance entre precision y recall.
+                                {% endif %}
+                            </li>
+                            <li><strong>Recomendación:</strong> 
+                                {% if metricas.auc_score >= 0.8 %}
+                                    El modelo es adecuado para uso en producción.
+                                {% else %}
+                                    Considerar técnicas adicionales para mejorar el rendimiento.
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para hacer predicciones -->
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <a href="/prediccion" class="btn btn-primary btn-lg">
+                <i class="fas fa-crystal-ball me-2"></i>
+                Probar el Modelo
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.text-purple {
+    color: #6f42c1 !important;
+}
+</style>
+{% endblock %}

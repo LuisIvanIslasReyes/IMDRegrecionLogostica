@@ -1,0 +1,352 @@
+j{% extends "base.html" %}
+
+{% block title %}Predicción de Compras{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Título de la página -->
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="display-5">
+                <i class="fas fa-crystal-ball me-3"></i>
+                Predicción de Compras
+            </h1>
+            <p class="lead text-muted">
+                Ingresa la edad y salario estimado para predecir la probabilidad de compra
+            </p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <!-- Formulario de predicción -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-user-circle me-2"></i>
+                        Datos del Cliente
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <form id="predictionForm">
+                        <div class="mb-3">
+                            <label for="edad" class="form-label">
+                                <i class="fas fa-birthday-cake me-2"></i>
+                                Edad
+                            </label>
+                            <input type="number" class="form-control" id="edad" 
+                                   min="18" max="100" required
+                                   placeholder="Ejemplo: 35">
+                            <div class="form-text">Ingresa la edad entre 18 y 100 años</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="salario" class="form-label">
+                                <i class="fas fa-dollar-sign me-2"></i>
+                                Salario Estimado (USD)
+                            </label>
+                            <input type="number" class="form-control" id="salario" 
+                                   min="0" step="1000" required
+                                   placeholder="Ejemplo: 50000">
+                            <div class="form-text">Ingresa el salario anual estimado</div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-magic me-2"></i>
+                                Predecir Compra
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados de la predicción -->
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-chart-pie me-2"></i>
+                        Resultado de la Predicción
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div id="resultados" class="text-center">
+                        <div class="text-muted">
+                            <i class="fas fa-arrow-left fa-2x mb-3"></i>
+                            <p>Completa el formulario para ver la predicción</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ejemplos predefinidos -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Ejemplos Rápidos
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">Haz clic en cualquiera de estos ejemplos para probar el modelo:</p>
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-primary w-100 ejemplo-btn" 
+                                    data-edad="25" data-salario="40000"
+                                    style="border-color: #546e7a; color: #546e7a;">
+                                <div class="mb-2">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </div>
+                                <strong>Joven Profesional</strong><br>
+                                <small>25 años, $40,000</small>
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-success w-100 ejemplo-btn" 
+                                    data-edad="35" data-salario="80000"
+                                    style="border-color: #607d8b; color: #607d8b;">
+                                <div class="mb-2">
+                                    <i class="fas fa-briefcase fa-2x"></i>
+                                </div>
+                                <strong>Ejecutivo</strong><br>
+                                <small>35 años, $80,000</small>
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-warning w-100 ejemplo-btn" 
+                                    data-edad="45" data-salario="120000"
+                                    style="border-color: #78909c; color: #78909c;">
+                                <div class="mb-2">
+                                    <i class="fas fa-crown fa-2x"></i>
+                                </div>
+                                <strong>Alta Gerencia</strong><br>
+                                <small>45 años, $120,000</small>
+                            </button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button class="btn btn-outline-info w-100 ejemplo-btn" 
+                                    data-edad="22" data-salario="28000"
+                                    style="border-color: #546e7a; color: #546e7a;">
+                                <div class="mb-2">
+                                    <i class="fas fa-graduation-cap fa-2x"></i>
+                                </div>
+                                <strong>Recién Graduado</strong><br>
+                                <small>22 años, $28,000</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historial de predicciones -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                        <i class="fas fa-history me-2"></i>
+                        Historial de Predicciones
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div id="historial">
+                        <p class="text-muted text-center">
+                            <i class="fas fa-clock fa-2x mb-3"></i><br>
+                            No hay predicciones anteriores
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Variables globales
+let historialPredicciones = [];
+
+// Función para hacer predicción
+async function hacerPrediccion(edad, salario) {
+    try {
+        const response = await fetch('/api/predecir', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                edad: edad,
+                salario: salario
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la predicción');
+        }
+
+        const resultado = await response.json();
+        mostrarResultado(resultado, edad, salario);
+        agregarAlHistorial(resultado, edad, salario);
+        
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('resultados').innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Error al realizar la predicción: ${error.message}
+            </div>
+        `;
+    }
+}
+
+// Función para mostrar el resultado
+function mostrarResultado(resultado, edad, salario) {
+    const probabilidadPercent = (resultado.probabilidad * 100).toFixed(1);
+    const esComprador = resultado.clase === 1;
+    
+    const html = `
+        <div class="text-center">
+            <div class="mb-3">
+                <i class="fas fa-${esComprador ? 'check-circle' : 'times-circle'} fa-3x" 
+                   style="color: ${esComprador ? '#546e7a' : '#e57373'}"></i>
+            </div>
+            <h4 style="color: ${esComprador ? '#546e7a' : '#e57373'}">${resultado.decision}</h4>
+            <div class="mt-3">
+                <h5>Probabilidad de Compra:</h5>
+                <div class="progress mb-3" style="height: 25px;">
+                    <div class="progress-bar" 
+                         style="background: ${esComprador ? 'linear-gradient(135deg, #546e7a 0%, #37474f 100%)' : 'linear-gradient(135deg, #e57373 0%, #d32f2f 100%)'}"
+                         role="progressbar" 
+                         style="width: ${probabilidadPercent}%"
+                         aria-valuenow="${probabilidadPercent}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        ${probabilidadPercent}%
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-${esComprador ? 'info' : 'warning'} mt-3" 
+                 style="background-color: ${esComprador ? '#e3f2fd' : '#fff3e0'}; border-color: ${esComprador ? '#546e7a' : '#ff9800'};">
+                <small>
+                    <strong>Interpretación:</strong> 
+                    ${esComprador ? 
+                        'Este cliente tiene alta probabilidad de realizar una compra. ¡Excelente prospect!' : 
+                        'Este cliente tiene baja probabilidad de compra. Podría necesitar estrategias específicas.'}
+                </small>
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('resultados').innerHTML = html;
+}
+
+// Función para agregar al historial
+function agregarAlHistorial(resultado, edad, salario) {
+    const prediccion = {
+        edad: edad,
+        salario: salario,
+        resultado: resultado,
+        fecha: new Date().toLocaleString()
+    };
+    
+    historialPredicciones.unshift(prediccion);
+    
+    // Mantener solo las últimas 5 predicciones
+    if (historialPredicciones.length > 5) {
+        historialPredicciones = historialPredicciones.slice(0, 5);
+    }
+    
+    actualizarHistorial();
+}
+
+// Función para actualizar el historial
+function actualizarHistorial() {
+    const historialDiv = document.getElementById('historial');
+    
+    if (historialPredicciones.length === 0) {
+        historialDiv.innerHTML = `
+            <p class="text-muted text-center">
+                <i class="fas fa-clock fa-2x mb-3"></i><br>
+                No hay predicciones anteriores
+            </p>
+        `;
+        return;
+    }
+    
+    let html = '<div class="table-responsive"><table class="table table-striped">';
+    html += `
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Edad</th>
+                <th>Salario</th>
+                <th>Predicción</th>
+                <th>Probabilidad</th>
+            </tr>
+        </thead>
+        <tbody>
+    `;
+    
+    historialPredicciones.forEach(prediccion => {
+        const esComprador = prediccion.resultado.clase === 1;
+        const probabilidadPercent = (prediccion.resultado.probabilidad * 100).toFixed(1);
+        
+        html += `
+            <tr>
+                <td><small>${prediccion.fecha}</small></td>
+                <td>${prediccion.edad}</td>
+                <td>$${prediccion.salario.toLocaleString()}</td>
+                <td>
+                    <span class="badge" style="background: ${esComprador ? 'linear-gradient(135deg, #546e7a 0%, #37474f 100%)' : 'linear-gradient(135deg, #e57373 0%, #d32f2f 100%)'}; color: white;">
+                        ${prediccion.resultado.decision}
+                    </span>
+                </td>
+                <td>${probabilidadPercent}%</td>
+            </tr>
+        `;
+    });
+    
+    html += '</tbody></table></div>';
+    historialDiv.innerHTML = html;
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Formulario de predicción
+    document.getElementById('predictionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const edad = parseInt(document.getElementById('edad').value);
+        const salario = parseInt(document.getElementById('salario').value);
+        
+        if (edad && salario) {
+            hacerPrediccion(edad, salario);
+        }
+    });
+
+    // Botones de ejemplo
+    document.querySelectorAll('.ejemplo-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const edad = parseInt(this.dataset.edad);
+            const salario = parseInt(this.dataset.salario);
+            
+            // Llenar el formulario
+            document.getElementById('edad').value = edad;
+            document.getElementById('salario').value = salario;
+            
+            // Hacer la predicción
+            hacerPrediccion(edad, salario);
+        });
+    });
+});
+</script>
+{% endblock %}

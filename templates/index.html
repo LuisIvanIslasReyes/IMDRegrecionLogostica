@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio - Modelo de Regresión Logística{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-chart-line me-3"></i>
+            Modelo de Regresión Logística
+        </h1>
+        <p class="lead mb-4">
+            Predicción de comportamiento de compra basado en edad y salario estimado
+        </p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <p class="mb-4">
+                    Nuestro modelo utiliza técnicas de machine learning para predecir la probabilidad 
+                    de que un usuario realice una compra basándose en sus características demográficas.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <!-- Características del Modelo -->
+    <section class="mb-5">
+        <h2 class="text-center mb-5">Características del Modelo</h2>
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h4>Regresión Logística</h4>
+                <p class="text-muted">
+                    Utiliza algoritmos de machine learning para clasificación binaria 
+                    con alta precisión en las predicciones.
+                </p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h4>Métricas Completas</h4>
+                <p class="text-muted">
+                    Evaluación exhaustiva del modelo con accuracy, precision, recall, 
+                    F1-score y análisis de la curva ROC.
+                </p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="feature-icon">
+                    <i class="fas fa-crystal-ball"></i>
+                </div>
+                <h4>Predicciones en Tiempo Real</h4>
+                <p class="text-muted">
+                    Ingresa edad y salario para obtener predicciones instantáneas 
+                    sobre la probabilidad de compra.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dataset Information -->
+    <section class="mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">
+                    <i class="fas fa-database me-2"></i>
+                    Información del Dataset
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Características del Dataset:</h5>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i><strong>User ID:</strong> Identificador único</li>
+                            <li><i class="fas fa-check text-success me-2"></i><strong>Género:</strong> Masculino/Femenino</li>
+                            <li><i class="fas fa-check text-success me-2"></i><strong>Edad:</strong> Edad del usuario</li>
+                            <li><i class="fas fa-check text-success me-2"></i><strong>Salario Estimado:</strong> Ingresos anuales</li>
+                            <li><i class="fas fa-check text-success me-2"></i><strong>Purchased:</strong> Variable objetivo (0/1)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Objetivo del Modelo:</h5>
+                        <p class="text-muted">
+                            El modelo predice si un usuario comprará un producto basándose en 
+                            su <strong>edad</strong> y <strong>salario estimado</strong>. 
+                            Esto permite identificar clientes potenciales y optimizar 
+                            estrategias de marketing.
+                        </p>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Aplicaciones:</strong> Marketing dirigido, análisis de segmentación 
+                            de clientes, y optimización de campañas publicitarias.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navegación Rápida -->
+    <section class="mb-5">
+        <h2 class="text-center mb-4">Explora el Modelo</h2>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-pie fa-3x mb-3" style="color: #546e7a;"></i>
+                        <h4>Información del Modelo</h4>
+                        <p class="text-muted">
+                            Visualiza métricas de rendimiento, matriz de confusión 
+                            y estadísticas del dataset.
+                        </p>
+                        <a href="/modelo" class="btn btn-primary">
+                            <i class="fas fa-eye me-2"></i>Ver Modelo
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-magic fa-3x mb-3" style="color: #607d8b;"></i>
+                        <h4>Hacer Predicciones</h4>
+                        <p class="text-muted">
+                            Ingresa datos de edad y salario para obtener 
+                            predicciones personalizadas.
+                        </p>
+                        <a href="/prediccion" class="btn" style="background: linear-gradient(135deg, #607d8b 0%, #455a64 100%); color: white; border: none;">
+                            <i class="fas fa-play me-2"></i>Predecir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>
+                    ¿Cómo Funciona?
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="rounded-circle text-white d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #546e7a 0%, #37474f 100%);">
+                            <span class="h4 mb-0">1</span>
+                        </div>
+                        <h5 class="mt-3">Datos de Entrada</h5>
+                        <p class="text-muted small">
+                            El usuario proporciona edad y salario estimado
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="rounded-circle text-white d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #607d8b 0%, #455a64 100%);">
+                            <span class="h4 mb-0">2</span>
+                        </div>
+                        <h5 class="mt-3">Procesamiento</h5>
+                        <p class="text-muted small">
+                            Los datos se normalizan usando el mismo escalador del entrenamiento
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="rounded-circle text-white d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #78909c 0%, #546e7a 100%);">
+                            <span class="h4 mb-0">3</span>
+                        </div>
+                        <h5 class="mt-3">Predicción</h5>
+                        <p class="text-muted small">
+                            El modelo calcula la probabilidad de compra
+                        </p>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <div class="rounded-circle text-white d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; background: linear-gradient(135deg, #90a4ae 0%, #607d8b 100%);">
+                            <span class="h4 mb-0">4</span>
+                        </div>
+                        <h5 class="mt-3">Resultado</h5>
+                        <p class="text-muted small">
+                            Se muestra la predicción y el nivel de confianza
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

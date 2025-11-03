@@ -1,0 +1,150 @@
+/* Paleta de colores azul grisáceo personalizada */
+:root {
+    --blue-grey-50: #eceff1;
+    --blue-grey-100: #cfd8dc;
+    --blue-grey-200: #b0bec5;
+    --blue-grey-300: #90a4ae;
+    --blue-grey-400: #78909c;
+    --blue-grey-500: #607d8b;
+    --blue-grey-600: #546e7a;
+    --blue-grey-700: #455a64;
+    --blue-grey-800: #37474f;
+    --blue-grey-900: #263238;
+}
+
+/* Sobrescribir colores de Bootstrap */
+.btn-primary {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%) !important;
+    border: none !important;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--blue-grey-800) 0%, var(--blue-grey-600) 100%) !important;
+    transform: translateY(-2px);
+}
+
+.btn-primary:focus, .btn-primary:active {
+    background: linear-gradient(135deg, var(--blue-grey-700) 0%, var(--blue-grey-900) 100%) !important;
+    box-shadow: 0 0 0 0.2rem rgba(84, 110, 122, 0.25) !important;
+}
+
+/* Botones de ejemplo personalizados */
+.ejemplo-btn:hover {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-700) 100%) !important;
+    color: white !important;
+    border-color: var(--blue-grey-600) !important;
+    transform: translateY(-2px);
+}
+
+/* Cards con tema azul grisáceo */
+.card-header {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%) !important;
+    border-bottom: 1px solid var(--blue-grey-400);
+}
+
+/* Métricas cards */
+.metric-card {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%) !important;
+    box-shadow: 0 4px 8px rgba(84, 110, 122, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.metric-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%) !important;
+}
+
+/* Progress bars */
+.progress-bar {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%) !important;
+}
+
+/* Links y textos */
+.text-primary {
+    color: var(--blue-grey-600) !important;
+}
+
+.text-secondary {
+    color: var(--blue-grey-500) !important;
+}
+
+/* Badges personalizados */
+.badge-blue-grey {
+    background: linear-gradient(135deg, var(--blue-grey-600) 0%, var(--blue-grey-800) 100%);
+    color: white;
+}
+
+/* Navbar personalizado */
+.navbar-dark {
+    background: linear-gradient(135deg, var(--blue-grey-900) 0%, var(--blue-grey-800) 100%) !important;
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(135deg, var(--blue-grey-900) 0%, var(--blue-grey-800) 100%) !important;
+}
+
+/* Animaciones suaves */
+.card, .btn, .metric-card {
+    transition: all 0.3s ease;
+}
+
+/* Hover effects para cards */
+.card:hover {
+    box-shadow: 0 8px 25px rgba(84, 110, 122, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Input focus personalizado */
+.form-control:focus {
+    border-color: var(--blue-grey-500);
+    box-shadow: 0 0 0 0.2rem rgba(84, 110, 122, 0.25);
+}
+
+/* Alertas personalizadas */
+.alert-info {
+    background-color: var(--blue-grey-50);
+    border-color: var(--blue-grey-200);
+    color: var(--blue-grey-800);
+}
+
+/* Iconos con color personalizado */
+.feature-icon {
+    color: var(--blue-grey-600) !important;
+}
+
+/* Bordes redondeados más modernos */
+.card {
+    border-radius: 15px;
+    border: 1px solid var(--blue-grey-100);
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+/* Sombras personalizadas */
+.shadow-blue-grey {
+    box-shadow: 0 4px 6px rgba(84, 110, 122, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .metric-card {
+        margin-bottom: 15px;
+    }
+    
+    .hero-section {
+        padding: 40px 0;
+    }
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
